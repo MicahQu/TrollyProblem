@@ -60,4 +60,7 @@ public class TrainMoveScript : MonoBehaviour
             }
         }
     }
+    public void FlipLever(){
+        leverFlipped = !leverFlipped;
+    }
 }
