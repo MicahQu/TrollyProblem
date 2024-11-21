@@ -7,7 +7,9 @@ using UnityEngine.InputSystem.Controls;
 public class TrainMoveScript : MonoBehaviour
 {
     public float MoveSpeed = 5;
+     private float RotationSpeed = 3f; // Speed of rotation
     private bool leverFlipped = false;
+   
 
     private Vector3 targetPositionA = new Vector3(18.1f, 0f, 11.19f);
     private Vector3 targetPositionB = new Vector3(-10f, 0f, 11.19f);
@@ -45,7 +47,9 @@ public class TrainMoveScript : MonoBehaviour
                 if (leverFlipped)
                 {
                     Debug.Log("Lever is flipped, heading to C");
+                    StartCoroutine(SmoothRotateTo(0, 43f, 0)); // Use StartCoroutine here
                     currentTarget = targetPositionC; // Go to point C if leverFlipped is true
+                    
                 }
                 else
                 {
@@ -56,11 +60,28 @@ public class TrainMoveScript : MonoBehaviour
             else if (currentTarget == targetPositionC)
             {
                 // If at point C, head to point D
+                 StartCoroutine(SmoothRotateTo(0, 90, 0)); // Use StartCoroutine here
                 currentTarget = targetPositionD;
+               
             }
         }
     }
     public void FlipLever(){
         leverFlipped = !leverFlipped;
     }
+    public IEnumerator SmoothRotateTo(float x, float y, float z)
+    {
+        Debug.Log("Rotating");
+        Quaternion targetRotation = Quaternion.Euler(x, y, z);
+        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.01f) // Threshold to stop
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
+            yield return null; // Wait until the next frame
+        }
+
+        // Ensure we snap to the target rotation at the end
+        transform.rotation = targetRotation;
+    }
+
+
 }
