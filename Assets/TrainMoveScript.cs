@@ -7,14 +7,15 @@ using UnityEngine.InputSystem.Controls;
 public class TrainMoveScript : MonoBehaviour
 {
     public float MoveSpeed = 5;
-     private float RotationSpeed = 3f; // Speed of rotation
+     private float RotationSpeed = .7f; // Speed of rotation
     private bool leverFlipped = false;
    
 
-    private Vector3 targetPositionA = new Vector3(18.1f, 0f, 11.19f);
-    private Vector3 targetPositionB = new Vector3(-10f, 0f, 11.19f);
-    private Vector3 targetPositionC = new Vector3(10f, 0f, 0f);
-    private Vector3 targetPositionD = new Vector3(-10f, 0f, 0f);
+    private Vector3 targetPositionA = new Vector3(14.39f, 0f, 11.19f);
+    private Vector3 targetPositionB = new Vector3(-43.04f, 0f, 11.19f);
+   
+    private Vector3 targetPositionC = new Vector3(-1.44f, 0f, 1.43f);
+    private Vector3 targetPositionD = new Vector3(-38.52f, 0f, -40.38f);
 
     private Vector3 currentTarget;
 
@@ -47,7 +48,7 @@ public class TrainMoveScript : MonoBehaviour
                 if (leverFlipped)
                 {
                     Debug.Log("Lever is flipped, heading to C");
-                    StartCoroutine(SmoothRotateTo(0, 43f, 0)); // Use StartCoroutine here
+                    StartCoroutine(SmoothRotateTo(0, 41.254f, 0)); // Use StartCoroutine here
                     currentTarget = targetPositionC; // Go to point C if leverFlipped is true
                     
                 }
@@ -60,7 +61,7 @@ public class TrainMoveScript : MonoBehaviour
             else if (currentTarget == targetPositionC)
             {
                 // If at point C, head to point D
-                 StartCoroutine(SmoothRotateTo(0, 90, 0)); // Use StartCoroutine here
+                // StartCoroutine(SmoothRotateTo(0, 90, 0)); // Use StartCoroutine here
                 currentTarget = targetPositionD;
                
             }
